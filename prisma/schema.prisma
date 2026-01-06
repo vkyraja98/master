@@ -4,11 +4,12 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql" // Changed from sqlite
+  url      = env("POSTGRES_PRISMA_URL") // Uses Vercel's env var
+  directUrl = env("POSTGRES_URL_NON_POOLING") // For migrations
 }
+
 
 model User {
   id        String   @id @default(cuid())
@@ -117,5 +118,6 @@ model Answer {
 
   @@unique([attemptId, questionId])
 }
+
 
 
